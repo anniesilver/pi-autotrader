@@ -33,7 +33,20 @@ The Kindle needs to be jailbroken first, with KUAL installed (WatchThis for firm
 2. Connect the Kindle over USB and copy the whole `deploy/kindle/pidash` folder to `extensions/pidash` on the Kindle drive.
 3. Eject the Kindle, open **KUAL → Pi Dashboard → Start dashboard**.
 
-The Kindle's own UI stops and the dashboard appears. It refreshes every `INTERVAL` seconds (default 900). **Stop dashboard** brings the normal Kindle UI back, and **Refresh now** redraws once.
+The Kindle's own UI stops and the dashboard appears. It refreshes every `INTERVAL` seconds (default 900).
+
+### Getting the normal Kindle back
+
+With `STOP_UI=1`, KUAL stops along with the rest of the Kindle UI, so its **Stop dashboard** item can't be reached while the dashboard is up. To exit, tell the Kindle from the Pi:
+
+```bash
+echo stop > state/dash/kindle-control.txt   # within a minute the Kindle UI comes back
+rm state/dash/kindle-control.txt            # clear it, or the next Start stops right away
+```
+
+If the Pi isn't reachable, hold the Kindle's power button for about 20 seconds to force a reboot. The dashboard doesn't auto-start, so it comes back as a normal Kindle.
+
+With `STOP_UI=0` the Kindle UI keeps running and the KUAL menu items work, but the UI may now and then draw over the dashboard until the next refresh. **Refresh now** redraws once.
 
 Keep the Kindle plugged in, ideally into one of the Pi's USB ports. The loop keeps WiFi on and the screensaver off, so the battery would run down in a few days otherwise.
 
