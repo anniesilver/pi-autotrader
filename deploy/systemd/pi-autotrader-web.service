@@ -1,0 +1,13 @@
+[Unit]
+Description=Serve the Kindle dashboard image on the local network (port 8080)
+After=network-online.target
+
+[Service]
+User=__USER__
+WorkingDirectory=__REPO__
+ExecStartPre=/bin/mkdir -p __REPO__/state/dash
+ExecStart=/usr/bin/python3 -m http.server 8080 --directory __REPO__/state/dash
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
