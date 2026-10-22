@@ -6,7 +6,7 @@
       "items": [
         {"name": "Start dashboard", "action": "bin/start.sh"},
         {"name": "Stop dashboard", "action": "bin/stop.sh"},
-        {"name": "Refresh now", "action": "bin/fetch.sh"}
+        {"name": "Refresh now", "action": "bin/refresh.sh"}
       ]
     }
   ]
