@@ -3,6 +3,8 @@
 # used to exit. Instead the loop polls a control file next to the image once a
 # minute: when it says "stop", the normal UI comes back. On the Pi:
 #   echo stop > state/dash/kindle-control.txt     (remove the file afterwards)
+trap '' TERM HUP
+echo $$ > /tmp/pidash.pid
 DIR="$(cd "$(dirname "$0")/.." && pwd)"
 . "$DIR/pidash.conf"
 CONTROL_URL="${DASH_URL%/*}/kindle-control.txt"
@@ -18,7 +20,9 @@ while true; do
   fi
   if wget -q -T 10 -O - "$CONTROL_URL" 2>/dev/null | grep -q stop; then
     eips -c
-    exec "$DIR/bin/stop.sh"
+    rm -f /tmp/pidash.pid
+    "$DIR/bin/stop.sh"
+    exit 0
   fi
   sleep 60
   elapsed=$((elapsed + 60))
