@@ -7,7 +7,7 @@ USER_NAME="$(id -un)"
 
 echo "== packages"
 sudo apt-get update
-sudo apt-get install -y python3-venv python3-pip git curl
+sudo apt-get install -y python3-venv python3-pip git curl fonts-dejavu-core
 
 if ! command -v docker >/dev/null; then
   echo "== docker"
@@ -27,7 +27,8 @@ chmod 600 "$REPO/deploy/gateway.env" "$REPO/.env"
 mkdir -p "$REPO/deploy/tws_settings" "$REPO/state"
 
 echo "== systemd timer"
-for f in pi-autotrader.service pi-autotrader.timer; do
+for f in pi-autotrader.service pi-autotrader.timer pi-autotrader-dash.service pi-autotrader-dash.timer \
+         pi-autotrader-web.service; do
   sed -e "s#__USER__#$USER_NAME#g" -e "s#__REPO__#$REPO#g" "$REPO/deploy/systemd/$f" \
     | sudo tee "/etc/systemd/system/$f" >/dev/null
 done
@@ -40,5 +41,6 @@ Done. Next:
   2. sudo docker compose -f deploy/docker-compose.yml up -d     (start IB Gateway)
   3. .venv/bin/python -m autotrader.run                          (dry run, sends nothing)
   4. sudo systemctl enable --now pi-autotrader.timer             (daily 15:45 ET, still dry run)
+  5. sudo systemctl enable --now pi-autotrader-dash.timer pi-autotrader-web.service   (Kindle dashboard)
 See docs/PI_SETUP.md for details. Log out and back in once so docker works without sudo.
 MSG

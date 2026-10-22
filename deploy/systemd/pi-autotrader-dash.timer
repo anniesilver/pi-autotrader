@@ -1,0 +1,9 @@
+[Unit]
+Description=Re-render the Kindle dashboard every 15 minutes
+
+[Timer]
+OnBootSec=1min
+OnCalendar=*:0/15
+
+[Install]
+WantedBy=timers.target
