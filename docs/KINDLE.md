@@ -46,7 +46,7 @@ rm state/dash/kindle-control.txt            # clear it, or the next Start stops 
 
 If the Pi isn't reachable, hold the Kindle's power button for about 20 seconds to force a reboot. The dashboard doesn't auto-start, so it comes back as a normal Kindle.
 
-With `STOP_UI=0` the Kindle UI keeps running and the KUAL menu items work, but the UI may now and then draw over the dashboard until the next refresh. **Refresh now** redraws once.
+With `STOP_UI=0` the Kindle UI keeps running and the KUAL menu items work, but the UI may now and then draw over the dashboard until the next refresh. **Refresh now** redraws once, about 5 seconds after KUAL closes.
 
 Keep the Kindle plugged in, ideally into one of the Pi's USB ports. The loop keeps WiFi on and the screensaver off, so the battery would run down in a few days otherwise.
 
