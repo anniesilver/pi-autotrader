@@ -1,0 +1,11 @@
+[Unit]
+Description=pi-autotrader daily run (SPY_POWER_CASHFLOW)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=__USER__
+WorkingDirectory=__REPO__
+ExecStart=__REPO__/.venv/bin/python -m autotrader.run
+TimeoutStartSec=900

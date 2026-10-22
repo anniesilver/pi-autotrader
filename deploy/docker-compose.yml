@@ -1,0 +1,15 @@
+# IB Gateway + IBC in Docker (multi-arch image, runs on the Pi's arm64).
+# Image: https://github.com/gnzsnz/ib-gateway-docker
+name: pi-autotrader
+services:
+  ib-gateway:
+    image: ghcr.io/gnzsnz/ib-gateway:stable
+    restart: always
+    env_file: gateway.env
+    ports:
+      # Paper API on localhost:4002 only; nothing is exposed to the network.
+      - "127.0.0.1:4002:4004"
+      # VNC to see the Gateway window if login needs help (off unless VNC_SERVER_PASSWORD is set)
+      - "127.0.0.1:5900:5900"
+    volumes:
+      - ./tws_settings:/home/ibgateway/tws_settings

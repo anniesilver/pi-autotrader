@@ -1,0 +1,9 @@
+[Unit]
+Description=Run pi-autotrader at 15:45 New York time on weekdays
+
+[Timer]
+OnCalendar=Mon..Fri 15:45 America/New_York
+Persistent=false
+
+[Install]
+WantedBy=timers.target

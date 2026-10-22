@@ -3,6 +3,7 @@
     python -m autotrader.run              # uses .env; DRY_RUN defaults to on
     python -m autotrader.run --send       # actually place orders (paper account)
     python -m autotrader.run --force      # run again even if today already ran
+    python -m autotrader.run --check      # connection check: print what IB reports, decide nothing
 """
 
 import argparse
@@ -19,6 +20,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--send", action="store_true", help="place orders (overrides DRY_RUN)")
     p.add_argument("--force", action="store_true", help="run even if today already ran")
+    p.add_argument("--check", action="store_true", help="print account and market data, then exit")
     args = p.parse_args()
 
     s = BotSettings.from_env()
@@ -36,6 +38,20 @@ def main():
     broker = IBBroker(s)
     try:
         today = datetime.now(ZoneInfo("America/New_York")).date()
+        if args.check:
+            print(json.dumps({
+                "account": broker.account_id(),
+                "paper": broker.account_id().startswith("DU"),
+                "spy": broker.spy_price(),
+                "vix": broker.vix(),
+                "spy_shares": broker.spy_shares(),
+                "cash": broker.cash(),
+                "net_liquidation": broker.net_liquidation(),
+                "short_calls": [vars(c) for c in broker.short_calls()],
+                "trading_day_today": broker.is_trading_day(today),
+                "month_last_trading_day": broker.month_last_trading_day(today),
+            }, indent=2, default=str))
+            return
         status = run_once(broker, s, today, force=args.force)
         print(json.dumps(status, indent=2, default=str))
     finally:

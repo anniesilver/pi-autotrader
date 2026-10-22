@@ -10,7 +10,7 @@ The first strategy is **SPY_POWER_CASHFLOW**, ported from `algo_trading/SPY_POWE
 
 1. **Live decision engine** from the backtest code: `autotrader/engine.py`
 2. **Python bot** on the IB paper account (`ib_async`, IB Gateway): order execution, state, safety limits, notifications (`autotrader/bot.py`)
-3. **Pi setup**: Raspberry Pi OS 64-bit, IB Gateway + IBC, systemd service and schedule
+3. **Pi setup**: Raspberry Pi OS 64-bit, IB Gateway + IBC in Docker, systemd timer (`docs/PI_SETUP.md`)
 4. **Kindle display**: the Pi renders a 1072×1448 grayscale status image; the Kindle pulls and shows it
 5. **Paper trade** for at least three monthly cycles, compare with the backtest, then decide on live
 
@@ -27,6 +27,8 @@ autotrader/state.py     state/state.json, journal.jsonl, status.json (for the Ki
 backtest/replay.py      replays the engine over 20 years of SPY/VIX closes
 data/                   SPY and VIX daily closes, 2005-2025
 docs/STRATEGY_LIVE.md   the rules, and how live trading differs from the backtest
+docs/PI_SETUP.md        Raspberry Pi setup, step by step
+deploy/                 setup script, IB Gateway docker-compose, systemd timer
 tests/                  unit tests plus a parity check against the original backtest
 ```
 
