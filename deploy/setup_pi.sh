@@ -7,7 +7,7 @@ USER_NAME="$(id -un)"
 
 echo "== packages"
 sudo apt-get update
-sudo apt-get install -y python3-venv python3-pip git curl fonts-dejavu-core
+sudo apt-get install -y python3-venv python3-pip git curl fonts-dejavu-core fonts-noto-cjk
 
 if ! command -v docker >/dev/null; then
   echo "== docker"

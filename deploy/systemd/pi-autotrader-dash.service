@@ -1,8 +1,9 @@
 [Unit]
-Description=Render the pi-autotrader Kindle dashboard
+Description=Render the pi-autotrader Kindle pages (dashboard, task list)
 
 [Service]
 Type=oneshot
 User=__USER__
 WorkingDirectory=__REPO__
 ExecStart=__REPO__/.venv/bin/python -m autotrader.dashboard
+ExecStart=__REPO__/.venv/bin/python -m autotrader.tasks_page

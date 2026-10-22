@@ -4,9 +4,11 @@
       "name": "Pi Dashboard",
       "priority": 0,
       "items": [
-        {"name": "Start dashboard", "action": "bin/start.sh"},
-        {"name": "Stop dashboard", "action": "bin/stop.sh"},
-        {"name": "Refresh now", "action": "bin/refresh.sh"}
+        {"name": "Start (trading dashboard)", "action": "bin/start.sh", "params": "dashboard"},
+        {"name": "Start (task list)", "action": "bin/start.sh", "params": "tasks"},
+        {"name": "Stop", "action": "bin/stop.sh"},
+        {"name": "Refresh now", "action": "bin/refresh.sh"},
+        {"name": "Next app", "action": "bin/refresh.sh", "params": "next"}
       ]
     }
   ]
