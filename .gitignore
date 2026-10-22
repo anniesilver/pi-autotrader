@@ -4,3 +4,5 @@ __pycache__/
 .env
 state/
 logs/
+deploy/gateway.env
+deploy/tws_settings/
